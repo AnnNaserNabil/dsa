@@ -3,6 +3,7 @@ name: Deploy DSA_Blog to GitHub Pages
 on:
   push:
     branches: [ main ]
+  workflow_dispatch:
 
 jobs:
   deploy:
@@ -21,14 +22,19 @@ jobs:
           extended: true
 
       - name: Build Hugo site
-        run: hugo --minify --destination ./public
+        run: |
+          mkdir -p ./public/dsa
+          hugo --minify --destination ./public/dsa
+          # Create a CNAME file in the root for GitHub Pages
+          echo "nabil.is-a.dev" > ./public/CNAME
 
-      - name: Deploy to GitHub Pages via SSH
+      - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
-          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}   # Private SSH key
+          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
           publish_dir: ./public
           publish_branch: gh-pages
           force_orphan: true
           keep_files: false
-          allow_empty_commit: false
+          allow_empty_commit: true
+          commit_message: 'Deploy: 🚀 Deploying to nabil.is-a.dev/dsa'
