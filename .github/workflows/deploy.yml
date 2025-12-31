@@ -2,7 +2,7 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [ main ]  # Change this to your default branch name if different
+    branches: [ main ]  # Your default branch
 
 jobs:
   deploy:
@@ -10,8 +10,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          submodules: true  # Fetch Hugo themes (true OR recursive)
-          fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
+          submodules: true
+          fetch-depth: 0
 
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
@@ -25,6 +25,7 @@ jobs:
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
-          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+          ssh_private_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
           publish_dir: ./public
-          # cname: yourdomain.com  # Uncomment and set if using a custom domain
+          publish_branch: gh-pages
+          # cname: yourdomain.com  # Uncomment if using a custom domain
