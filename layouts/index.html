@@ -13,7 +13,7 @@
         <p class="text-xl md:text-2xl text-gray-600 mb-10 max-w-2xl mx-auto">
             {{ .Site.Params.description }}
         </p>
-        <a href="/blogs/"
+        <a href="{{ " /blogs/" | relURL }}"
             class="inline-flex items-center justify-center px-8 py-4 text-lg font-medium text-white bg-gray-900 hover:bg-gray-800 transition-all rounded-full shadow-lg hover:shadow-xl transform hover:-translate-y-1">
             Get Started &rarr;
         </a>
