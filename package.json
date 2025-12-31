@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "DSA Notes with Visualizations",
   "scripts": {
-    "build:css": "tailwindcss -i ./themes/dsa-theme/assets/scss/main.scss -o ./themes/dsa-theme/static/css/main.css --minify",
-    "watch:css": "tailwindcss -i ./themes/dsa-theme/assets/scss/main.scss -o ./themes/dsa-theme/static/css/main.css --watch",
+    "build:css": "npx tailwindcss -i ./themes/dsa-theme/assets/scss/main.scss -o ./themes/dsa-theme/static/css/main.css --minify",
+    "watch:css": "npx tailwindcss -i ./themes/dsa-theme/assets/scss/main.scss -o ./themes/dsa-theme/static/css/main.css --watch",
     "build": "npm run build:css && hugo --minify",
     "dev": "npm run watch:css & hugo server -D"
   },
