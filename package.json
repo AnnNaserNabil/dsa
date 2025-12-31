@@ -3,13 +3,13 @@
   "version": "1.0.0",
   "description": "DSA Notes with Visualizations",
   "scripts": {
-    "build:css": "node_modules/.bin/tailwindcss -i ./themes/dsa-theme/assets/scss/main.scss -o ./themes/dsa-theme/static/css/main.css",
+    "build:css": "npx tailwindcss -i ./themes/dsa-theme/assets/scss/main.scss -o ./themes/dsa-theme/static/css/main.css",
     "build": "npm run build:css && hugo --minify",
     "dev": "hugo server -D"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.23",
     "postcss": "^8.5.6",
-    "tailwindcss": "^4.1.18"
+    "tailwindcss": "^3.4.19"
   }
 }

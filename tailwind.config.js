@@ -2,6 +2,7 @@
 module.exports = {
   content: [
     "./themes/dsa-theme/layouts/**/*.html",
+    "./layouts/**/*.html",
     "./content/**/*.md",
     "./content/**/*.html"
   ],
