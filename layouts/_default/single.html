@@ -1,27 +1,57 @@
 {{ define "main" }}
-<article class="max-w-3xl mx-auto px-4 py-24">
-    <header class="mb-12">
-        <div class="flex items-center space-x-3 mb-6">
-            {{ with .Params.difficulty }}
-            <span class="px-2.5 py-0.5 rounded-full text-xs font-medium 
-                {{ if eq . " Easy" }} bg-green-100 text-green-700 {{ else if eq . "Medium" }} bg-yellow-100
-                text-yellow-700 {{ else if eq . "Hard" }} bg-red-100 text-red-700 {{ else }} bg-gray-100 text-gray-700
-                {{ end }}">
-                {{ . }}
-            </span>
-            {{ end }}
-            <time class="text-sm text-gray-500">{{ .Date.Format "Jan 2, 2006" }}</time>
-        </div>
-        <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">{{ .Title }}</h1>
-        <div class="flex flex-wrap gap-2">
-            {{ range .Params.tags }}
-            <span class="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm">#{{ . }}</span>
-            {{ end }}
-        </div>
-    </header>
+<main class="pt-32 pb-24">
+    <article class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <header class="mb-16">
+            <div class="flex items-center space-x-4 mb-8">
+                <span class="badge {{ if eq .Params.difficulty " easy" }}badge-easy{{ else if eq
+                    .Params.difficulty "medium" }}badge-medium{{ else }}badge-hard{{ end }} uppercase tracking-wider
+                    font-bold">
+                    {{ .Params.difficulty | default "medium" }}
+                </span>
+                <time class="text-sm font-medium text-secondary-400">{{ .Date.Format "January 02, 2006" }}</time>
+            </div>
 
-    <div class="prose prose-indigo prose-lg max-w-none text-gray-700">
-        {{ .Content }}
-    </div>
-</article>
+            <h1 class="text-4xl md:text-6xl font-black tracking-tight text-secondary-900 mb-8 leading-[1.1]">
+                {{ .Title }}
+            </h1>
+
+            <div class="flex flex-wrap gap-3">
+                {{ range .Params.tags }}
+                <span
+                    class="text-xs font-bold uppercase tracking-widest text-primary-600 bg-primary-50 px-3 py-1.5 rounded-lg">
+                    #{{ . }}
+                </span>
+                {{ end }}
+            </div>
+        </header>
+
+        <div class="prose prose-slate prose-lg max-w-none 
+            prose-headings:font-black prose-headings:tracking-tight prose-headings:text-secondary-900
+            prose-p:text-secondary-600 prose-p:leading-relaxed
+            prose-a:text-primary-600 prose-a:no-underline hover:prose-a:underline
+            prose-strong:text-secondary-900
+            prose-code:text-primary-600 prose-code:bg-primary-50 prose-code:px-1 prose-code:py-0.5 prose-code:rounded
+            prose-pre:bg-secondary-900 prose-pre:rounded-2xl prose-pre:shadow-xl
+            prose-img:rounded-2xl prose-img:shadow-lg">
+            {{ .Content }}
+        </div>
+
+        <footer class="mt-24 pt-12 border-t border-secondary-100">
+            <div class="flex items-center justify-between">
+                <a href="{{ " /blogs/" | relURL }}"
+                    class="flex items-center text-sm font-bold text-secondary-500 hover:text-primary-600 transition-colors group">
+                    <svg class="mr-2 w-4 h-4 group-hover:-translate-x-1 transition-transform" fill="none"
+                        stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7" />
+                    </svg>
+                    Back to all notes
+                </a>
+                <div class="flex items-center space-x-4">
+                    <span class="text-xs font-bold text-secondary-400 uppercase tracking-widest">Share</span>
+                    <!-- Add share buttons if needed -->
+                </div>
+            </div>
+        </footer>
+    </article>
+</main>
 {{ end }}

@@ -1,40 +1,48 @@
 {{ define "main" }}
-<div class="max-w-4xl mx-auto px-4 py-24">
-    <header class="mb-16">
-        <h1 class="text-4xl font-bold text-gray-900 mb-4">DSA Notes</h1>
-        <p class="text-lg text-gray-600">A collection of algorithms and data structures explained simply.</p>
-    </header>
+<main class="pt-32 pb-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <header class="max-w-3xl mb-20">
+            <h1 class="text-4xl md:text-5xl font-black tracking-tight text-secondary-900 mb-6">
+                DSA Notes
+            </h1>
+            <p class="text-xl text-secondary-600 leading-relaxed">
+                A curated collection of algorithms and data structures, explained with visual intuition and practical
+                examples.
+            </p>
+        </header>
 
-    <div class="space-y-8">
-        {{ range .Pages }}
-        <article
-            class="group relative bg-white p-6 rounded-2xl border border-gray-100 hover:border-gray-200 hover:shadow-sm transition-all">
-            <div class="flex items-center justify-between mb-4">
-                <div class="flex items-center space-x-2">
-                    {{ with .Params.difficulty }}
-                    <span class="px-2.5 py-0.5 rounded-full text-xs font-medium 
-                        {{ if eq . " Easy" }} bg-green-100 text-green-700 {{ else if eq . "Medium" }} bg-yellow-100
-                        text-yellow-700 {{ else if eq . "Hard" }} bg-red-100 text-red-700 {{ else }} bg-gray-100
-                        text-gray-700 {{ end }}">
-                        {{ . }}
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {{ range .Pages }}
+            <article class="card group cursor-pointer flex flex-col"
+                onclick="window.location.href='{{ .RelPermalink }}'">
+                <div class="flex items-center justify-between mb-6">
+                    <span class="badge {{ if eq .Params.difficulty " easy" }}badge-easy{{ else if eq
+                        .Params.difficulty "medium" }}badge-medium{{ else }}badge-hard{{ end }} uppercase tracking-wider
+                        font-bold">
+                        {{ .Params.difficulty | default "medium" }}
+                    </span>
+                    <time class="text-xs font-medium text-secondary-400">{{ .Date.Format "Jan 02, 2006" }}</time>
+                </div>
+
+                <h2 class="text-2xl font-bold text-secondary-900 mb-4 group-hover:text-primary-600 transition-colors">
+                    {{ .Title }}
+                </h2>
+
+                <p class="text-secondary-500 text-sm line-clamp-3 mb-8 flex-grow">
+                    {{ .Summary }}
+                </p>
+
+                <div class="flex flex-wrap gap-2 pt-6 border-t border-secondary-50">
+                    {{ range .Params.tags }}
+                    <span
+                        class="text-[10px] font-bold uppercase tracking-widest text-secondary-400 bg-secondary-50 px-2 py-1 rounded">
+                        #{{ . }}
                     </span>
                     {{ end }}
                 </div>
-                <time class="text-sm text-gray-500">{{ .Date.Format "Jan 2, 2006" }}</time>
-            </div>
-            <h2 class="text-2xl font-bold text-gray-900 mb-3 group-hover:text-indigo-600 transition-colors">
-                <a href="{{ .RelPermalink }}">
-                    <span class="absolute inset-0"></span>
-                    {{ .Title }}
-                </a>
-            </h2>
-            <div class="flex flex-wrap gap-2">
-                {{ range .Params.tags }}
-                <span class="text-sm text-gray-500">#{{ . }}</span>
-                {{ end }}
-            </div>
-        </article>
-        {{ end }}
+            </article>
+            {{ end }}
+        </div>
     </div>
-</div>
+</main>
 {{ end }}

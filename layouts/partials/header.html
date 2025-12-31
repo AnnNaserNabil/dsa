@@ -1,73 +1,56 @@
-<header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b border-transparent"
+<header class="fixed top-0 left-0 right-0 z-50 transition-all duration-500 border-b border-transparent glass"
     id="main-header">
     <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
         <div class="flex items-center">
-            <a href="{{ " /" | relURL }}" class="text-2xl font-black tracking-tighter transition-colors"
-                id="header-logo">
-                {{ .Site.Title }}
+            <a href="{{ " /" | relURL }}" class="group flex items-center space-x-2">
+                <div
+                    class="w-10 h-10 bg-primary-600 rounded-xl flex items-center justify-center shadow-lg shadow-primary-500/20 group-hover:scale-110 transition-transform duration-300">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                            d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                    </svg>
+                </div>
+                <span
+                    class="text-xl font-black tracking-tight text-secondary-900 group-hover:text-primary-600 transition-colors duration-300">
+                    {{ .Site.Title }}
+                </span>
             </a>
         </div>
-        <div class="flex items-center space-x-10">
+
+        <!-- Desktop Navigation -->
+        <div class="hidden md:flex items-center space-x-8">
             <a href="{{ " /" | relURL }}"
-                class="text-sm font-bold uppercase tracking-widest transition-colors header-link">Home</a>
+                class="text-sm font-semibold text-secondary-600 hover:text-primary-600 transition-colors duration-200">Home</a>
             <a href="{{ " /about/" | relURL }}"
-                class="text-sm font-bold uppercase tracking-widest transition-colors header-link">About</a>
+                class="text-sm font-semibold text-secondary-600 hover:text-primary-600 transition-colors duration-200">About</a>
             <a href="{{ " /blogs/" | relURL }}"
-                class="text-sm font-bold uppercase tracking-widest transition-colors header-link">Blogs</a>
+                class="text-sm font-semibold text-secondary-600 hover:text-primary-600 transition-colors duration-200">Blogs</a>
+            <a href="https://github.com/{{ .Site.Params.github }}" target="_blank"
+                class="btn-primary !py-2 !px-4 !text-sm">
+                GitHub
+            </a>
+        </div>
+
+        <!-- Mobile Menu Button -->
+        <div class="md:hidden">
+            <button type="button" class="text-secondary-600 hover:text-primary-600 p-2" id="mobile-menu-button">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
         </div>
     </nav>
 </header>
-
-<style>
-    #main-header.scrolled {
-        background: rgba(255, 255, 255, 0.8);
-        backdrop-filter: blur(12px);
-        border-color: rgba(0, 0, 0, 0.05);
-        height: 4rem;
-    }
-
-    #main-header.scrolled .header-link {
-        color: #4b5563;
-    }
-
-    #main-header.scrolled .header-link:hover {
-        color: #000;
-    }
-
-    #main-header.scrolled #header-logo {
-        color: #000;
-    }
-
-    /* Initial state for dark landing page */
-    .is-home #main-header:not(.scrolled) .header-link {
-        color: rgba(255, 255, 255, 0.6);
-    }
-
-    .is-home #main-header:not(.scrolled) .header-link:hover {
-        color: #fff;
-    }
-
-    .is-home #main-header:not(.scrolled) #header-logo {
-        color: #fff;
-    }
-
-    /* Initial state for other pages (light) */
-    body:not(.is-home) #main-header:not(.scrolled) .header-link {
-        color: #4b5563;
-    }
-
-    body:not(.is-home) #main-header:not(.scrolled) #header-logo {
-        color: #000;
-    }
-</style>
 
 <script>
     const header = document.getElementById('main-header');
     window.addEventListener('scroll', () => {
         if (window.scrollY > 20) {
-            header.classList.add('scrolled');
+            header.classList.add('shadow-lg', 'shadow-secondary-200/50');
+            header.style.height = '4.5rem';
         } else {
-            header.classList.remove('scrolled');
+            header.classList.remove('shadow-lg', 'shadow-secondary-200/50');
+            header.style.height = '5rem';
         }
     });
 </script>

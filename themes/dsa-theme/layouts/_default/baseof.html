@@ -1,29 +1,30 @@
 <!DOCTYPE html>
-<html lang="{{ .Site.Language.Lang }}">
+<html lang="{{ .Site.Language.Lang }}" class="scroll-smooth">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
 
     <!-- CSS -->
     <link rel="stylesheet" href="{{ " css/main.css" | relURL }}">
 
-    <!-- JavaScript -->
-    <script src="{{ " js/main.js" | relURL }}" defer></script>
-
     {{ block "head" . }}{{ end }}
 </head>
 
-<body class="min-h-screen flex flex-col bg-gray-50 {{ if .IsHome }}is-home{{ end }}">
+<body class="min-h-screen flex flex-col selection:bg-primary-100 selection:text-primary-900">
     {{ partial "header.html" . }}
 
-    <main class="flex-grow">
+    <div class="flex-grow">
         {{ block "main" . }}{{ end }}
-    </main>
+    </div>
 
     {{ partial "footer.html" . }}
 </body>
