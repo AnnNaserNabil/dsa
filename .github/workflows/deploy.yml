@@ -2,37 +2,32 @@ name: Deploy DSA_Blog to GitHub Pages
 
 on:
   push:
-    branches: [ main ]  # Trigger on push to main branch
+    branches: [ main ]
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
     steps:
-      # 1️⃣ Checkout the repository
       - name: Checkout repo
         uses: actions/checkout@v3
         with:
-          submodules: true   # Fetch Hugo themes
-          fetch-depth: 0     # Fetch full history for .GitInfo and .Lastmod
+          submodules: true
+          fetch-depth: 0
 
-      # 2️⃣ Setup Hugo
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
         with:
           hugo-version: 'latest'
           extended: true
 
-      # 3️⃣ Build the site
       - name: Build Hugo site
-        run: hugo --minify
+        run: hugo --minify --destination ./public
 
-      # 4️⃣ Deploy to GitHub Pages
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}  # Built-in token
-          publish_dir: ./public                        # Hugo output folder
-          publish_branch: gh-pages                     # Branch to deploy
-          keep_files: false                            # Clean before deploy
-          # cname: yourdomain.com                      # Uncomment if using custom domain
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
+          publish_branch: gh-pages
+          force_orphan: true
+          keep_files: false
