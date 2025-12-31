@@ -1,10 +1,10 @@
-<header class="fixed top-0 left-0 right-0 z-50 transition-all duration-500 border-b border-transparent glass"
+<header class="fixed top-0 left-0 right-0 z-50 transition-all duration-500 glass border-b border-white/20"
     id="main-header">
-    <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+    <nav class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
         <div class="flex items-center">
-            <a href="{{ " /" | relURL }}" class="group flex items-center space-x-2">
+            <a href="{{ " /" | relURL }}" class="group flex items-center space-x-3">
                 <div
-                    class="w-10 h-10 bg-primary-600 rounded-xl flex items-center justify-center shadow-lg shadow-primary-500/20 group-hover:scale-110 transition-transform duration-300">
+                    class="w-10 h-10 bg-gradient-to-br from-primary-600 to-accent-600 rounded-xl flex items-center justify-center shadow-lg shadow-primary-500/20 group-hover:scale-110 transition-all duration-500">
                     <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
                             d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
@@ -18,15 +18,14 @@
         </div>
 
         <!-- Desktop Navigation -->
-        <div class="hidden md:flex items-center space-x-8">
+        <div class="hidden md:flex items-center space-x-10">
             <a href="{{ " /" | relURL }}"
-                class="text-sm font-semibold text-secondary-600 hover:text-primary-600 transition-colors duration-200">Home</a>
-            <a href="{{ " /about/" | relURL }}"
-                class="text-sm font-semibold text-secondary-600 hover:text-primary-600 transition-colors duration-200">About</a>
+                class="text-sm font-bold text-secondary-600 hover:text-primary-600 transition-colors duration-200">Home</a>
             <a href="{{ " /blogs/" | relURL }}"
-                class="text-sm font-semibold text-secondary-600 hover:text-primary-600 transition-colors duration-200">Blogs</a>
-            <a href="https://github.com/{{ .Site.Params.github }}" target="_blank"
-                class="btn-primary !py-2 !px-4 !text-sm">
+                class="text-sm font-bold text-secondary-600 hover:text-primary-600 transition-colors duration-200">Blogs</a>
+            <a href="{{ " /about/" | relURL }}"
+                class="text-sm font-bold text-secondary-600 hover:text-primary-600 transition-colors duration-200">About</a>
+            <a href="https://github.com/{{ .Site.Params.github }}" target="_blank" class="btn-primary">
                 GitHub
             </a>
         </div>
@@ -46,10 +45,10 @@
     const header = document.getElementById('main-header');
     window.addEventListener('scroll', () => {
         if (window.scrollY > 20) {
-            header.classList.add('shadow-lg', 'shadow-secondary-200/50');
+            header.classList.add('shadow-xl', 'shadow-primary-500/5');
             header.style.height = '4.5rem';
         } else {
-            header.classList.remove('shadow-lg', 'shadow-secondary-200/50');
+            header.classList.remove('shadow-xl', 'shadow-primary-500/5');
             header.style.height = '5rem';
         }
     });

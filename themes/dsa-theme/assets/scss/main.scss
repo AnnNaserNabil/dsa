@@ -3,57 +3,58 @@
 @tailwind utilities;
 
 :root {
-    --glass-bg: rgba(255, 255, 255, 0.7);
-    --glass-border: rgba(255, 255, 255, 0.3);
-    --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+    --glass-bg: rgba(255, 255, 255, 0.6);
+    --glass-border: rgba(255, 255, 255, 0.4);
+    --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.05);
+    --mesh-gradient: radial-gradient(at 0% 0%, hsla(253, 16%, 7%, 1) 0, transparent 50%),
+        radial-gradient(at 50% 0%, hsla(225, 39%, 30%, 1) 0, transparent 50%),
+        radial-gradient(at 100% 0%, hsla(339, 49%, 30%, 1) 0, transparent 50%);
 }
 
 @layer base {
     body {
-        @apply bg-secondary-50 text-secondary-900 antialiased;
+        @apply bg-secondary-50 text-secondary-900 antialiased selection:bg-primary-200 selection:text-primary-900;
         font-feature-settings: "cv02", "cv03", "cv04", "cv11";
     }
 
-    ::selection {
-        @apply bg-primary-200 text-primary-900;
+    .mesh-bg {
+        background-color: #f8fafc;
+        background-image:
+            radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.05) 0px, transparent 50%),
+            radial-gradient(at 100% 0%, rgba(139, 92, 246, 0.05) 0px, transparent 50%),
+            radial-gradient(at 100% 100%, rgba(99, 102, 241, 0.05) 0px, transparent 50%),
+            radial-gradient(at 0% 100%, rgba(139, 92, 246, 0.05) 0px, transparent 50%);
     }
 }
 
 @layer components {
     .glass {
+        @apply backdrop-blur-md;
         background: var(--glass-bg);
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
         border: 1px solid var(--glass-border);
         box-shadow: var(--glass-shadow);
     }
 
+    .glass-dark {
+        @apply backdrop-blur-md;
+        background: rgba(15, 23, 42, 0.8);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
     .btn-primary {
-        @apply inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-semibold rounded-xl text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-all duration-200 shadow-lg shadow-primary-500/20 hover:shadow-primary-500/40 hover:-translate-y-0.5 active:translate-y-0;
+        @apply inline-flex items-center justify-center px-6 py-2.5 text-sm font-bold rounded-xl text-white bg-primary-600 hover:bg-primary-700 transition-all duration-300 shadow-lg shadow-primary-500/25 hover:shadow-primary-500/40 hover:-translate-y-0.5 active:translate-y-0;
     }
 
     .btn-secondary {
-        @apply inline-flex items-center justify-center px-6 py-3 border border-secondary-200 text-base font-semibold rounded-xl text-secondary-700 bg-white hover:bg-secondary-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-all duration-200 shadow-sm hover:shadow-md hover:-translate-y-0.5 active:translate-y-0;
+        @apply inline-flex items-center justify-center px-6 py-2.5 text-sm font-bold rounded-xl text-secondary-700 bg-white border border-secondary-200 hover:bg-secondary-50 transition-all duration-300 shadow-sm hover:shadow-md hover:-translate-y-0.5 active:translate-y-0;
     }
 
-    .card {
-        @apply bg-white rounded-2xl border border-secondary-100 p-6 transition-all duration-300 hover:shadow-xl hover:shadow-secondary-200/50 hover:-translate-y-1;
+    .card-notebook {
+        @apply bg-white/80 backdrop-blur-sm rounded-3xl border border-white/50 p-8 transition-all duration-500 hover:shadow-2xl hover:shadow-primary-500/10 hover:-translate-y-1.5;
     }
 
-    .badge {
-        @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
-    }
-
-    .badge-easy {
-        @apply bg-emerald-100 text-emerald-700;
-    }
-
-    .badge-medium {
-        @apply bg-amber-100 text-amber-700;
-    }
-
-    .badge-hard {
-        @apply bg-rose-100 text-rose-700;
+    .notebook-spine {
+        @apply absolute left-0 top-0 bottom-0 w-1.5 bg-gradient-to-b from-primary-500 to-accent-500 rounded-l-3xl;
     }
 }
 
@@ -63,11 +64,11 @@
 }
 
 .prose pre {
-    @apply bg-secondary-900 rounded-2xl shadow-2xl !my-8;
+    @apply bg-secondary-950 rounded-2xl shadow-2xl !my-8 border border-white/10;
 }
 
 .prose code {
-    @apply font-mono text-primary-600 bg-primary-50 px-1.5 py-0.5 rounded-md before:content-none after:content-none;
+    @apply font-mono text-primary-600 bg-primary-50/50 px-1.5 py-0.5 rounded-md before:content-none after:content-none;
 }
 
 .prose h1,
@@ -76,33 +77,15 @@
     @apply tracking-tight font-black text-secondary-900;
 }
 
-/* Animations */
-@keyframes float {
-    0% {
-        transform: translateY(0px);
-    }
-
-    50% {
-        transform: translateY(-10px);
-    }
-
-    100% {
-        transform: translateY(0px);
-    }
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
 }
 
-.animate-float {
-    animation: float 6s ease-in-out infinite;
+::-webkit-scrollbar-track {
+    @apply bg-secondary-50;
 }
 
-.stagger-1 {
-    animation-delay: 0.1s;
-}
-
-.stagger-2 {
-    animation-delay: 0.2s;
-}
-
-.stagger-3 {
-    animation-delay: 0.3s;
+::-webkit-scrollbar-thumb {
+    @apply bg-secondary-200 rounded-full border-4 border-secondary-50 hover:bg-secondary-300 transition-colors;
 }

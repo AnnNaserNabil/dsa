@@ -19,12 +19,12 @@
     {{ block "head" . }}{{ end }}
 </head>
 
-<body class="min-h-screen flex flex-col selection:bg-primary-100 selection:text-primary-900">
+<body class="min-h-screen flex flex-col mesh-bg selection:bg-primary-200 selection:text-primary-900">
     {{ partial "header.html" . }}
 
-    <div class="flex-grow">
+    <main class="flex-grow pt-20">
         {{ block "main" . }}{{ end }}
-    </div>
+    </main>
 
     {{ partial "footer.html" . }}
 </body>
