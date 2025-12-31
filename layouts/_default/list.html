@@ -1,0 +1,40 @@
+{{ define "main" }}
+<div class="max-w-4xl mx-auto px-4 py-24">
+    <header class="mb-16">
+        <h1 class="text-4xl font-bold text-gray-900 mb-4">DSA Notes</h1>
+        <p class="text-lg text-gray-600">A collection of algorithms and data structures explained simply.</p>
+    </header>
+
+    <div class="space-y-8">
+        {{ range .Pages }}
+        <article
+            class="group relative bg-white p-6 rounded-2xl border border-gray-100 hover:border-gray-200 hover:shadow-sm transition-all">
+            <div class="flex items-center justify-between mb-4">
+                <div class="flex items-center space-x-2">
+                    {{ with .Params.difficulty }}
+                    <span class="px-2.5 py-0.5 rounded-full text-xs font-medium 
+                        {{ if eq . " Easy" }} bg-green-100 text-green-700 {{ else if eq . "Medium" }} bg-yellow-100
+                        text-yellow-700 {{ else if eq . "Hard" }} bg-red-100 text-red-700 {{ else }} bg-gray-100
+                        text-gray-700 {{ end }}">
+                        {{ . }}
+                    </span>
+                    {{ end }}
+                </div>
+                <time class="text-sm text-gray-500">{{ .Date.Format "Jan 2, 2006" }}</time>
+            </div>
+            <h2 class="text-2xl font-bold text-gray-900 mb-3 group-hover:text-indigo-600 transition-colors">
+                <a href="{{ .RelPermalink }}">
+                    <span class="absolute inset-0"></span>
+                    {{ .Title }}
+                </a>
+            </h2>
+            <div class="flex flex-wrap gap-2">
+                {{ range .Params.tags }}
+                <span class="text-sm text-gray-500">#{{ . }}</span>
+                {{ end }}
+            </div>
+        </article>
+        {{ end }}
+    </div>
+</div>
+{{ end }}

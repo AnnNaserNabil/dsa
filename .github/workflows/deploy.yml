@@ -23,10 +23,12 @@ jobs:
 
       - name: Build Hugo site
         run: |
-          # Build directly to public directory with baseURL /dsa/
-          hugo --minify --baseURL "https://nabil.is-a.dev/dsa/" --destination ./public
-          # Create a CNAME file for GitHub Pages
-          echo "nabil.is-a.dev" > ./public/CNAME
+          # Clean the public directory
+          rm -rf public/*
+          # Build with the correct baseURL
+          hugo --minify --destination ./public
+          # Create a test file to verify deployment
+          echo "Test file - if you see this, the deployment worked" > ./public/test.txt
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
