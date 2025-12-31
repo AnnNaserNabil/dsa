@@ -1,0 +1,23 @@
+<header class="fixed w-full bg-white shadow-sm z-10">
+    <nav class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-16">
+            <div class="flex-shrink-0 flex items-center">
+                <a href="{{ "/" | relURL }}" class="text-xl font-bold text-gray-900">
+                    {{ .Site.Title }}
+                </a>
+            </div>
+            <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
+                {{ $currentPage := . }}
+                {{ range .Site.Menus.main }}
+                    <a href="{{ .URL }}" 
+                       class="{{ if $currentPage.IsMenuCurrent "main" . }}border-indigo-500 text-gray-900{{ else }}border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700{{ end }} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                        {{ .Name }}
+                    </a>
+                {{ end }}
+            </div>
+        </div>
+    </nav>
+</header>
+
+<!-- Add padding to account for fixed header -->
+<div class="h-16"></div>

@@ -1,0 +1,112 @@
+// Import Tailwind CSS
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+// Custom styles
+body {
+    @apply text-gray-900;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    line-height: 1.6;
+}
+
+// Custom components
+.btn {
+    @apply inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500;
+    transition: all 0.2s ease;
+}
+
+// Animation for the canvas
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.canvas-container {
+    @apply relative w-full h-96 md:h-screen/2 flex items-center justify-center bg-gradient-to-br from-indigo-50 to-blue-50;
+    
+    canvas {
+        @apply w-full h-full;
+        animation: fadeIn 1s ease-out;
+    }
+    
+    .hero-content {
+        @apply absolute text-center px-4 z-10;
+        max-width: 42rem;
+        
+        h1 {
+            @apply text-4xl md:text-6xl font-bold text-gray-900 mb-4;
+            line-height: 1.1;
+        }
+        
+        p {
+            @apply text-lg md:text-xl text-gray-600 mb-8;
+        }
+    }
+}
+
+// Blog styles
+.blog-list {
+    @apply grid gap-8 md:grid-cols-2 lg:grid-cols-3;
+    
+    .blog-card {
+        @apply bg-white rounded-lg shadow overflow-hidden hover:shadow-md transition-shadow duration-300;
+        
+        &-content {
+            @apply p-6;
+        }
+        
+        h2 {
+            @apply text-xl font-bold text-gray-900 mb-2;
+        }
+        
+        .difficulty {
+            @apply inline-block px-3 py-1 rounded-full text-xs font-semibold mr-2 mb-2;
+            
+            &.easy { @apply bg-green-100 text-green-800; }
+            &.medium { @apply bg-yellow-100 text-yellow-800; }
+            &.hard { @apply bg-red-100 text-red-800; }
+        }
+        
+        .tags {
+            @apply flex flex-wrap mt-3;
+            
+            span {
+                @apply bg-gray-100 text-gray-600 text-xs px-2 py-1 rounded mr-2 mb-2;
+            }
+        }
+    }
+}
+
+// Content styles
+.prose {
+    @apply max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8;
+    
+    h1, h2, h3, h4, h5, h6 {
+        @apply font-bold text-gray-900 mt-8 mb-4;
+    }
+    
+    h1 { @apply text-3xl; }
+    h2 { @apply text-2xl; }
+    h3 { @apply text-xl; }
+    
+    p {
+        @apply my-4 text-gray-700;
+    }
+    
+    pre {
+        @apply rounded-lg overflow-hidden my-6;
+        
+        code {
+            @apply block p-4 overflow-x-auto;
+        }
+    }
+    
+    code {
+        @apply font-mono text-sm bg-gray-100 px-2 py-1 rounded;
+    }
+    
+    a {
+        @apply text-indigo-600 hover:text-indigo-800 underline;
+    }
+}

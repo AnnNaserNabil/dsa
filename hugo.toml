@@ -1,0 +1,27 @@
+baseURL = 'https://AnnNaserNabil.github.io/dsa'
+languageCode = 'en-us'
+title = 'DSA Notes'
+theme = 'dsa-theme'
+
+disableKinds = ["taxonomy", "taxonomyTerm"]
+
+[params]
+  description = "Personal DSA notes with visualizations"
+  author = "Ann Naser Nabil"
+  github = "AnnNaserNabil"
+
+[markup]
+  [markup.highlight]
+    codeFences = true
+    guessSyntax = true
+    lineNos = true
+    style = "monokai"
+
+[outputs]
+  home = ['HTML', 'RSS', 'sitemap']
+  page = ['HTML']
+  section = ['HTML']
+
+[sitemap]
+  changefreq = 'weekly'
+  priority = 0.5
