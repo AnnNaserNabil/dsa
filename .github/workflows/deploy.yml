@@ -23,9 +23,9 @@ jobs:
 
       - name: Build Hugo site
         run: |
-          mkdir -p ./public/dsa
-          hugo --minify --destination ./public/dsa
-          # Create a CNAME file in the root for GitHub Pages
+          # Build directly to public directory with baseURL /dsa/
+          hugo --minify --baseURL "https://nabil.is-a.dev/dsa/" --destination ./public
+          # Create a CNAME file for GitHub Pages
           echo "nabil.is-a.dev" > ./public/CNAME
 
       - name: Deploy to GitHub Pages
