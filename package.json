@@ -3,10 +3,9 @@
   "version": "1.0.0",
   "description": "DSA Notes with Visualizations",
   "scripts": {
-    "build:css": "npx tailwindcss -i ./themes/dsa-theme/assets/scss/main.scss -o ./themes/dsa-theme/static/css/main.css --minify",
-    "watch:css": "npx tailwindcss -i ./themes/dsa-theme/assets/scss/main.scss -o ./themes/dsa-theme/static/css/main.css --watch",
+    "build:css": "node_modules/.bin/tailwindcss -i ./themes/dsa-theme/assets/scss/main.scss -o ./themes/dsa-theme/static/css/main.css",
     "build": "npm run build:css && hugo --minify",
-    "dev": "npm run watch:css & hugo server -D"
+    "dev": "hugo server -D"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.23",

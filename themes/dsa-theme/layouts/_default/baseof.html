@@ -9,8 +9,7 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     
     <!-- CSS -->
-    {{ $style := resources.Get "css/main.css" | minify | fingerprint }}
-    <link rel="stylesheet" href="{{ $style.Permalink }}">
+    <link rel="stylesheet" href="{{ "css/main.css" | relURL }}">
     
     <!-- JavaScript -->
     <script src="{{ "js/main.js" | relURL }}" defer></script>
