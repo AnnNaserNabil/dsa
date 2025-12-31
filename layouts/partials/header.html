@@ -1,17 +1,73 @@
-<header class="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
-    <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+<header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b border-transparent"
+    id="main-header">
+    <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
         <div class="flex items-center">
-            <a href="{{ " /" | relURL }}" class="text-xl font-bold text-gray-900 tracking-tight">
+            <a href="{{ " /" | relURL }}" class="text-2xl font-black tracking-tighter transition-colors"
+                id="header-logo">
                 {{ .Site.Title }}
             </a>
         </div>
-        <div class="flex items-center space-x-8">
+        <div class="flex items-center space-x-10">
             <a href="{{ " /" | relURL }}"
-                class="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">Home</a>
+                class="text-sm font-bold uppercase tracking-widest transition-colors header-link">Home</a>
             <a href="{{ " /about/" | relURL }}"
-                class="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">About Me</a>
+                class="text-sm font-bold uppercase tracking-widest transition-colors header-link">About</a>
             <a href="{{ " /blogs/" | relURL }}"
-                class="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">Blogs</a>
+                class="text-sm font-bold uppercase tracking-widest transition-colors header-link">Blogs</a>
         </div>
     </nav>
 </header>
+
+<style>
+    #main-header.scrolled {
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(12px);
+        border-color: rgba(0, 0, 0, 0.05);
+        height: 4rem;
+    }
+
+    #main-header.scrolled .header-link {
+        color: #4b5563;
+    }
+
+    #main-header.scrolled .header-link:hover {
+        color: #000;
+    }
+
+    #main-header.scrolled #header-logo {
+        color: #000;
+    }
+
+    /* Initial state for dark landing page */
+    .is-home #main-header:not(.scrolled) .header-link {
+        color: rgba(255, 255, 255, 0.6);
+    }
+
+    .is-home #main-header:not(.scrolled) .header-link:hover {
+        color: #fff;
+    }
+
+    .is-home #main-header:not(.scrolled) #header-logo {
+        color: #fff;
+    }
+
+    /* Initial state for other pages (light) */
+    body:not(.is-home) #main-header:not(.scrolled) .header-link {
+        color: #4b5563;
+    }
+
+    body:not(.is-home) #main-header:not(.scrolled) #header-logo {
+        color: #000;
+    }
+</style>
+
+<script>
+    const header = document.getElementById('main-header');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 20) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
+        }
+    });
+</script>

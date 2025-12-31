@@ -1,24 +1,27 @@
-// Minimal DSA Visualization - Looping Bubble Sort
+// Premium DSA Visualization - Artistic Sorting
 const canvas = document.getElementById('algoCanvas');
 const ctx = canvas.getContext('2d');
 
 let width, height;
-let bars = [];
-const barCount = 40;
+let particles = [];
+const particleCount = 60;
 let isSorting = false;
 
 function resize() {
     width = canvas.width = window.innerWidth;
     height = canvas.height = window.innerHeight;
-    initBars();
+    initParticles();
 }
 
-function initBars() {
-    bars = [];
-    for (let i = 0; i < barCount; i++) {
-        bars.push({
-            value: Math.random() * 0.6 + 0.1, // 10% to 70% of height
-            color: '#e5e7eb' // gray-200
+function initParticles() {
+    particles = [];
+    for (let i = 0; i < particleCount; i++) {
+        particles.push({
+            value: Math.random(),
+            x: (i / particleCount) * width,
+            targetX: (i / particleCount) * width,
+            color: '#6366f1',
+            active: false
         });
     }
 }
@@ -26,62 +29,84 @@ function initBars() {
 function draw() {
     ctx.clearRect(0, 0, width, height);
 
-    const barWidth = width / barCount;
+    const barWidth = width / particleCount;
 
-    bars.forEach((bar, i) => {
-        const h = bar.value * height;
-        const x = i * barWidth;
+    particles.forEach((p, i) => {
+        const h = p.value * (height * 0.6);
+        const x = p.x;
         const y = height - h;
 
-        ctx.fillStyle = bar.color;
-        ctx.fillRect(x + 2, y, barWidth - 4, h);
+        // Gradient for bars
+        const grad = ctx.createLinearGradient(x, y, x, height);
+        if (p.active) {
+            grad.addColorStop(0, '#818cf8'); // indigo-400
+            grad.addColorStop(1, 'rgba(129, 140, 248, 0)');
+        } else {
+            grad.addColorStop(0, 'rgba(99, 102, 241, 0.3)'); // indigo-500 with low opacity
+            grad.addColorStop(1, 'rgba(99, 102, 241, 0)');
+        }
+
+        ctx.fillStyle = grad;
+        ctx.fillRect(x + 4, y, barWidth - 8, h);
+
+        // Glowing top point
+        if (p.active) {
+            ctx.shadowBlur = 15;
+            ctx.shadowColor = '#818cf8';
+            ctx.fillStyle = '#fff';
+            ctx.beginPath();
+            ctx.arc(x + barWidth / 2, y, 2, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.shadowBlur = 0;
+        }
     });
 }
 
-async function loop() {
+async function sort() {
     if (isSorting) return;
     isSorting = true;
 
-    // Reset colors
-    bars.forEach(b => b.color = '#f3f4f6'); // gray-100
-
-    let n = bars.length;
+    let n = particles.length;
     let swapped;
 
     do {
         swapped = false;
         for (let i = 0; i < n - 1; i++) {
-            // Highlight current
-            const originalColor = bars[i].color;
-            bars[i].color = '#6366f1'; // indigo-500
-            bars[i + 1].color = '#6366f1';
-
+            particles[i].active = true;
+            particles[i + 1].active = true;
             draw();
-            await new Promise(r => setTimeout(r, 50));
 
-            if (bars[i].value > bars[i + 1].value) {
-                [bars[i], bars[i + 1]] = [bars[i + 1], bars[i]];
+            await new Promise(r => setTimeout(r, 40));
+
+            if (particles[i].value > particles[i + 1].value) {
+                // Swap values
+                const temp = particles[i].value;
+                particles[i].value = particles[i + 1].value;
+                particles[i + 1].value = temp;
                 swapped = true;
                 draw();
             }
 
-            bars[i].color = '#f3f4f6';
-            bars[i + 1].color = '#f3f4f6';
+            particles[i].active = false;
+            particles[i + 1].active = false;
         }
         n--;
     } while (swapped);
 
-    // Fade to success color
-    bars.forEach(b => b.color = '#10b981'); // emerald-500
-    draw();
-    await new Promise(r => setTimeout(r, 2000));
+    // Completion effect
+    for (let i = 0; i < particles.length; i++) {
+        particles[i].active = true;
+        draw();
+        await new Promise(r => setTimeout(r, 10));
+        particles[i].active = false;
+    }
 
-    // Restart
+    await new Promise(r => setTimeout(r, 3000));
     isSorting = false;
-    initBars();
-    loop();
+    initParticles();
+    sort();
 }
 
 window.addEventListener('resize', resize);
 resize();
-loop();
+sort();
